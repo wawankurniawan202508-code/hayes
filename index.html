@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Kakak Law 🤍</title>
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    text-align:center;
+    font-family:Georgia, serif;
+    background:linear-gradient(135deg,#ff9ecf,#ff4d88);
+    color:white;
+    overflow:hidden;
+}
+
+.card{
+    margin-top:40px;
+    background:rgba(255,255,255,0.15);
+    padding:30px;
+    border-radius:20px;
+    display:inline-block;
+    max-width:400px;
+}
+
+#gameArea{
+    position:relative;
+    width:100%;
+    height:350px;
+    margin-top:20px;
+}
+
+.heart{
+    position:absolute;
+    font-size:30px;
+    cursor:pointer;
+    animation:fall linear forwards;
+}
+
+@keyframes fall{
+    0%{top:-10%;}
+    100%{top:100%;}
+}
+
+#message{
+    margin-top:15px;
+    font-size:18px;
+    display:none;
+}
+
+.confetti{
+    position:absolute;
+    width:8px;
+    height:8px;
+    animation:confettiFall 3s linear forwards;
+}
+
+@keyframes confettiFall{
+    0%{top:-10%;opacity:1;}
+    100%{top:100%;opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>Happy Valentine's Day 🤍</h1>
+    <h2>For Kakak Law</h2>
+    <p>Collect the hearts 💗</p>
+    <h3>Hearts: <span id="score">0</span></h3>
+    <div id="message"></div>
+</div>
