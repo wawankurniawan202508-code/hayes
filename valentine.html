@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Love Quiz 💘</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 30px;
+    border-radius: 25px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    width: 350px;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 8px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+.option {
+    background: white;
+    color: #ff2e63;
+}
+
+#nextBtn {
+    background: #ff2e63;
+    color: white;
+    display: none;
+}
+
+.heart {
+    position: absolute;
+    animation: fall 4s linear infinite;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-100px); opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2 id="question">Loading...</h2>
+    <div id="options"></div>
+    <button id="nextBtn">Next 💕</button>
+    <p id="result"></p>
+</div>
+
+<script>
+const quiz = [
+{
+    question: "What is love?",
+    options: ["Just a word", "A feeling", "A choice and commitment ❤️"],
+    answer: 2
+},
+{
+    question: "What makes a relationship strong?",
+    options: ["Trust 💖", "Money 💰", "Jealousy 😤"],
+    answer: 0
+},
+{
+    question: "What would you choose for Valentine?",
+    options: ["Chocolate 🍫", "Flowers 🌹", "You ❤️"],
+    answer: 2
+}
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+const questionEl = document.getElementById("question");
+const optionsEl = document.getElementById("options");
+const nextBtn = document.getElementById("nextBtn");
+
+nextBtn.addEventListener("click", nextQuestion);
+
+function loadQuestion() {
+    nextBtn.style.display = "none";
+    const q = quiz[currentQuestion];
+    questionEl.innerText = q.question;
+    optionsEl.innerHTML = "";
+
+    q.options.forEach((option, index) => {
+        const btn = document.createElement("button");
+        btn.innerText = option;
+        btn.classList.add("option");
+        btn.addEventListener("click", () => selectAnswer(index));
+        optionsEl.appendChild(btn);
+    });
+}
+
+function selectAnswer(index) {
+    if (index === quiz[currentQuestion].answer) {
+        score++;
+    }
+    nextBtn.style.display = "inline-block";
+}
+
+function nextQuestion() {
+    currentQuestion++;
+    if (currentQuestion < quiz.length) {
+        loadQuestion();
+    } else {
+        showResult();
+    }
+}
+
+function showResult() {
+    document.querySelector(".card").innerHTML =
+        `<h2>Your Love Score: ${score}/3 💘</h2>
+        <p>${score >= 2 
+        ? "You truly understand love! Will you be my Valentine? 💖🌹"
+        : "Love is still learning... but that's okay 💕"}</p>`;
+}
+
+// Falling hearts
+setInterval(() => {
+    let heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 4000);
+}, 500);
+
+loadQuestion();
+</script>
+
+</body>
+</html>
